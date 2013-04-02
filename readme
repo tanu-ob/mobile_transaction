@@ -1,0 +1,25 @@
+Purpose of these two scripts(mob_emrjob_process.py and mob_emrjob_total.py) is to run an EMR job(based on Map-reduce technology) which adds an extra column to the input data and combines all the output files. Extra column values are "true" or "false" based on certain conditions(whether it is a mobile transaction). Those conditions have been implemented in reducer script.
+
+Before you run the scripts:
+ 1. Please supply access key and secret key for Amazon S3 and EMR. Update around line# 10-15 in both scripts.
+ 2. For EMR job, make sure you have following buckets set up with mapper/reducer files uploaded:
+       	mapper='s3://dd.etl.emr.com/scripts/mob_mapper.py',
+        reducer='s3://dd.etl.emr.com/scripts/mob_reducer.py',
+        input='s3://dd.etl.emr.com/temp/',
+        output='s3://dd.etl.emr.com/out_temp/'
+    	log_uri='s3://dd.etl.emr.com/logs/log'
+
+ 3. For combined job, make sure you have following buckets set up with mapper/reducer files uploaded:
+         mapper='s3://dd.etl.emr.com/scripts/mob_mapper_total.py',
+         reducer='s3://dd.etl.emr.com/scripts/mob_reducer_total.py',
+         output='s3://dd.etl.emr.com/grand_total/total/')
+	 log_uri='s3://dd.etl.emr.com/logs/log'
+
+
+To run EMR job which adds extra column to input data, run following command:
+   python mob_emrjob_process.py
+
+
+To combine all output files in one file, run following command:
+   python mob_emrjob_total.py
+
