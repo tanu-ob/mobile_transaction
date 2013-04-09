@@ -1,0 +1,45 @@
+Purpose of scripts:
+
+1. sqs_starter.py>>:
+	This script creates a queue and starts a default instance worker.
+
+2. sqs_feeder.py>>:
+	This script feeds (put messages) in the queue.it takes message body as commad line argument.
+
+3. sqs_monitor.py>>:
+
+	This script monitors the queue to see if messages in queue which are within limits if more than upper limit then start new workers if below lower limit then stop workers.
+
+4. sqs_worker.py::>
+	This script polls the queue to get messages and splits the message body (data-source+api+block definiation)to get  message_type(data-source),apitype(api) and block definiation(rowid). Workers are generlised meaning, from this message definiation you download the corrosponding apps from s3 bucket and run them.
+	Make sure you have desired bucket names in your account and reqired csv files in input buckets.
+
+5. twitter.py::>
+	This script calls twitter api to search for specific keyword in tweets.
+	Must specify your credentials before running this script.
+
+6. facebook.py::>
+	This script calls facebook api to reterive likes.Must specify your credentials before running this script.
+
+7. Weather.py::>
+	This script call wunderground api to get weather data.
+
+
+8. app_type.csv,workdefiniation.csv(block definiation),data.csv ::>>
+   	Make sure uploading these files to required buckets.
+
+9. sqs_connection.py::>
+	This script make all the desired connections to sqs and s3 and default instance configuration.
+
+Please Use Follwoing commands to run these scripts.
+1. $python starter.py
+2. $python worker.py
+3. $python feeder.py 'datasource+api+blockdefiniation id'
+     eg: $python feeder.py '010010002'
+4. $python monitor.py
+ 
+SUMMARY::>
+	You start by running starter.py script it will create a sqs queue of specified name if it does not exist and starts a default infrastructure. With feeder.py you can feed the queue with new messages at the same time you can start monitor.py app to monitor the queue it will keep on running. 
+
+
+Let me Know if you have any Questions Please.Thanks.
